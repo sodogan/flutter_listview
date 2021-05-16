@@ -13,8 +13,18 @@ class VideoList extends StatelessWidget {
       itemCount: this.userList != null ? this.userList.length : 0,
       itemBuilder: (context, i) {
         User currentUser = this.userList[i];
+        final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+        primary: Colors.white,
+        minimumSize: Size(88, 44),
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(2.0),),
+      ),
+      backgroundColor: Colors.blue,
+      );
         return Column(children: [
-          FlatButton(
+          TextButton(
+            style: flatButtonStyle,
             onPressed: () {
               print("item pressed at index $i");
               Navigator.push(context, MaterialPageRoute(builder: (context) {
