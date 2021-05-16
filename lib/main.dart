@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import './user.dart';
+
+import 'model/user.dart';
+import './views/video_list.dart';
 
 void main() {
   runApp(MainApp());
@@ -55,6 +56,12 @@ class _RealWorldAppState extends State<RealWorldApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(this._title), actions: <Widget>[
@@ -76,53 +83,6 @@ class _RealWorldAppState extends State<RealWorldApp> {
                   backgroundColor: Colors.amber,
                 )
               : VideoList(userList: _finalUserList)),
-    );
-  }
-}
-
-class VideoList extends StatelessWidget {
-  final userList;
-
-  VideoList({@required this.userList});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: this.userList != null ? this.userList.length : 0,
-      itemBuilder: (context, i) {
-        User currentUser = this.userList[i];
-        return Column(children: [
-          VideoCell(user: currentUser,),
-          Container(
-            height: 6.0,
-          ),
-          Divider(
-            color: Colors.amber,
-            height: 25.0,
-          ),
-        ]);
-      },
-    );
-  }
-}
-
-class VideoCell extends StatelessWidget {
-  final User user;
-
-  VideoCell({ @required this.user});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Image.network(user.picture.large),
-          Text(
-            user.fullName,
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      padding: EdgeInsets.all(16.0),
     );
   }
 }
